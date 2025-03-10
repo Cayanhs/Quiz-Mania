@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolha o Tema - Quiz Mania</title>
+    <link rel="shortcut icon" href="favicon_io (1)/favicon-16x16.png" type="image/x-icon">
+</head>
+<style>
+    /* Resetando estilos padrões */ 
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Corpo da página */
+    body {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(45deg, #4CAF50, #81C784); /* Gradiente de fundo */
+        background-size: 400% 400%;
+        animation: gradientAnimation 5s ease infinite; /* Animação de gradiente */
+        color: #000000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        position: relative; /* Necessário para as partículas */
+    }
+
+    /* Animação de fundo: Transição de cores */
+    @keyframes gradientAnimation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Partículas flutuantes no fundo */
+    @keyframes particleAnimation {
+        0% { transform: translateY(0) rotate(0deg); }
+        100% { transform: translateY(-300px) rotate(360deg); }
+    }
+
+    .particle {
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        animation: particleAnimation linear infinite;
+        opacity: 0.8;
+    }
+
+    .particle-small {
+        width: 8px;
+        height: 8px;
+        animation-duration: 5s;
+        animation-delay: 0s;
+    }
+
+    .particle-medium {
+        width: 15px;
+        height: 15px;
+        animation-duration: 7s;
+        animation-delay: 2s;
+    }
+
+    .particle-large {
+        width: 25px;
+        height: 25px;
+        animation-duration: 10s;
+        animation-delay: 4s;
+    }
+
+    /* Cabeçalho */
+    header {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #4CAF50;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        color: #4CAF50;
+        margin-bottom: 20px;
+        animation: slideInFromLeft 1s ease-out;
+    }
+
+    /* Animação do título */
+    @keyframes slideInFromLeft {
+        from {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    /* Container principal do quiz */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-right: 30px;
+    }
+
+    .quiz-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 15px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 8px;
+        width: 200px;
+        transition: background-color 0.3s ease;
+    }
+
+    .quiz-btn:hover {
+        background-color: #45a049;
+    }
+
+    .description-box {
+        width: 300px;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        text-align: left;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Efeito de hover nos botões */
+    .quiz-btn:hover {
+        background-color: #45a049;
+    }
+
+    /* Efeito de zoom no container */
+    .quiz-container:hover {
+        transform: scale(1.05);
+    }
+    #back-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: white;
+    color: rgb(6, 173, 14);
+    border: 2px solid green;
+    padding: 8px 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+#back-button:hover {
+    background-color: rgb(25, 83, 28);
+    color: white;
+}
+
+</style>
+<body>
+
+    <button id="back-button" onclick="window.location.href='home.html'">⮜ Voltar</button>
+
+
+    <header>
+        <h1>Quiz Mania</h1>
+        <p>Escolha um tema para começar o quiz!</p>
+    </header>
+    
+    <main>
+        <div class="container">
+            <div class="buttons">
+                <button class="quiz-btn" data-desc="Testa seus conhecimentos gerais com perguntas de várias áreas!" onclick="startQuiz('geral')">Assuntos Gerais</button>
+                <button class="quiz-btn" data-desc="Desafie-se com perguntas sobre países, capitais e curiosidades do mundo!" onclick="startQuiz('geografia')">Geografia</button>
+                <button class="quiz-btn" data-desc="Mostre que você entende de animes, desde os clássicos até os mais recentes!" onclick="startQuiz('animes')">Animes</button>
+                <button class="quiz-btn" data-desc="Teste seus conhecimentos sobre filmes, séries, músicas e cultura pop!" onclick="startQuiz('cultura_pop')">Cultura Pop</button>
+            </div>
+            <div class="description-box" id="descBox"></div>
+        </div>
+    </main>
+    
+
+    <script>
+     const buttons = document.querySelectorAll(".quiz-btn");
+const descBox = document.getElementById("descBox");
+
+buttons.forEach(button => {
+    button.addEventListener("mouseenter", () => {
+        descBox.textContent = button.getAttribute("data-desc");
+        descBox.style.opacity = "1"; // Faz a descrição aparecer
+    });
+
+    button.addEventListener("mouseleave", () => {
+        descBox.style.opacity = "0"; // Faz a descrição desaparecer
+    });
+});
+
+function startQuiz(tema) {
+    if (tema === 'geral') {
+        window.location.href = `gerais.html?tema=${tema}`;
+    } else if (tema === 'geografia') {
+        window.location.href = `geografia.html?tema=${tema}`;
+    } else if (tema === 'animes') {
+        window.location.href = `animes.html?tema=${tema}`;
+    } else if (tema === 'cultura_pop') {
+        window.location.href = `cultura_pop.html?tema=${tema}`;
+    }
+}
+
+
+    </script>
+</body>
+</html>

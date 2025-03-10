@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz de Cultura Pop</title>
+    <link rel="shortcut icon" href="favicon_io (1)/favicon-16x16.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <style>
+    #back-button {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background-color: white;
+      color: rgb(6, 173, 14);
+      border: 2px solid green;
+      padding: 8px 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    #back-button:hover {
+      background-color: rgb(25, 83, 28);
+      color: white;
+    }
+  </style>
+  <body>
+    <button id="back-button" onclick="window.location.href='preludio.html'">⮜ Voltar</button>
+
+
+    <div class="quiz-container">
+      <h1>Quiz de Cultura Pop</h1>
+      <div id="quiz">
+        <div id="question-container">
+          <h2 id="question">
+            Qual é o nome do personagem principal de 'Star Wars'?
+          </h2>
+        </div>
+        <div class="options">
+          <button class="option" onclick="checkAnswer('A')">
+            A) Luke Skywalker
+          </button>
+          <button class="option" onclick="checkAnswer('B')">B) Han Solo</button>
+          <button class="option" onclick="checkAnswer('C')">
+            C) Darth Vader
+          </button>
+          <button class="option" onclick="checkAnswer('D')">D) Yoda</button>
+        </div>
+        <div id="feedback"></div>
+        <button id="next-btn" onclick="nextQuestion()" style="display: none">
+          Próxima Pergunta
+        </button>
+      </div>
+      <div id="score-container" style="display: none">
+        <h2>Você completou o quiz!</h2>
+        <p>Pontuação: <span id="score">0</span></p>
+        <button onclick="restartQuiz()">Recomeçar Quiz</button>
+      </div>
+    </div>
+
+    <script src="cul.js"></script>
+  </body>
+</html>
